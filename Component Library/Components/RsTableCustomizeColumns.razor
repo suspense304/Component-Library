@@ -1,0 +1,9 @@
+﻿@namespace Component_Library
+
+@if (IsOpen ?? false)
+{
+    <div class="flex flex-col w-full" role="tooltip" @onclick="OnClick" @ref="MyRef">
+        @ChildContent
+    </div>
+}
+

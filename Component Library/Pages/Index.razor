@@ -1,0 +1,572 @@
+﻿@page "/"
+@using Component_Library.Enums;
+@using Component_Library.Models;
+
+<PageTitle>Index</PageTitle>
+
+<div class="w-3/4 h-[640px]">
+    <RsTable TableItem="Asset" Items="data" ShowSearchBar="true">
+        <RsColumn TableItem="Asset" Title="Category Id" Field="@(x => x.Id)" Hideable="true" />
+        <RsColumn TableItem="Asset" Title="Category Name" Field="@(x => x.Identification)" />
+        <RsColumn TableItem="Asset" Title="Make" Field="@(x => x.Make)" Sortable="true" />
+        <RsColumn TableItem="Asset" Title="Model" Field="@(x => x.Model)" Sortable="true" />
+        <RsColumn TableItem="Asset" Title="Year" Field="@(x => x.Year)" Sortable="true" />
+    </RsTable>
+</div>
+
+
+@code {
+    private List<Asset> data { get; set; } = new List<Asset>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await AddAssetData();
+    }
+
+    public async Task AddAssetData()
+    {
+        List<Category> catList = new();
+        #region Categories
+        var category0 = new Category
+            {
+                Name = "Uncategorized"
+            };
+
+        var category1 = new Category
+            {
+                Id = new Guid("06453a81-e39c-4fa6-92f7-b90099812dcf"),
+                Identification = "446030",
+                Name = "Conc. Circ. Saw [<10 HP]"
+            };
+
+        var category2 = new Category
+            {
+                Id = new Guid("16453a81-e39c-4fa6-92f7-b90099812dcf"),
+                Identification = "416010",
+                Name = "Air Compressor [<124 CFM]"
+            };
+
+        var category3 = new Category
+            {
+                Id = new Guid("26453a81-e39c-4fa6-92f7-b90099812dcf"),
+                Identification = "420020",
+                Name = "Generator [5.1-10.0 KW]"
+            };
+
+        var category4 = new Category
+            {
+                Id = new Guid("36453a81-e39c-4fa6-92f7-b90099812dcf"),
+                Identification = "421060",
+                Name = "Pipe Laser"
+            };
+
+        var category5 = new Category
+            {
+                Id = new Guid("46453a81-e39c-4fa6-92f7-b90099812dcf"),
+                Identification = "30500500",
+                Name = "Backhoes"
+            };
+
+        var subcategory1 = new Category
+            {
+                Id = new Guid("56453a81-e39c-4fa6-92f7-b90099812dcf"),
+                Identification = "30500530",
+                Name = "Backhoe [80-89 HP]",
+                Parent = category5
+            };
+
+        var subcategory2 = new Category
+            {
+                Id = new Guid("66453a81-e39c-4fa6-92f7-b90099812dcf"),
+                Identification = "30500550",
+                Name = "Backhoe [100-119 HP]",
+                Parent = category5
+            };
+
+        catList.Add(category0);
+        catList.Add(category1);
+        catList.Add(category2);
+        catList.Add(category3);
+        catList.Add(category4);
+        catList.Add(category5);
+        catList.Add(subcategory1);
+        catList.Add(subcategory2);
+        #endregion
+
+        List<Tag> tagList = new();
+        #region Tags
+        var tag1 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Alan"
+            };
+
+        var tag2 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Chris"
+            };
+
+        var tag3 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Jerry"
+            };
+
+        var tag4 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Rob"
+            };
+
+        var tag5 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Steven"
+            };
+
+        var tag6 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Brent"
+            };
+
+        var tag7 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Derek"
+            };
+
+        var tag8 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "JT"
+            };
+
+        var tag9 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Shop"
+            };
+
+        var tag10 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Yard"
+            };
+
+        var tag11 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Brian"
+            };
+
+        var tag12 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Jeff"
+            };
+
+        var tag13 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Ricky"
+            };
+
+        var tag14 = new Tag
+            {
+                Id = Guid.NewGuid(),
+                Name = "Spare Pickup"
+            };
+
+        tagList.Add(tag1);
+        tagList.Add(tag2);
+        tagList.Add(tag3);
+        tagList.Add(tag4);
+        tagList.Add(tag5);
+        tagList.Add(tag6);
+        tagList.Add(tag7);
+        tagList.Add(tag8);
+        tagList.Add(tag9);
+        tagList.Add(tag10);
+        tagList.Add(tag11);
+        tagList.Add(tag12);
+        tagList.Add(tag13);
+        tagList.Add(tag14);
+        #endregion
+
+        List<Asset> assets = new();
+        #region Assets
+        #region Real Assets
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "4014",
+                DeviceType = DeviceType.Unknown,
+                Name = "Gas Cutoff Saw [14.0\"]",
+                Year = 2021,
+                Make = "Stihl",
+                Model = "TS 420",
+                Category = category1
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "4014",
+                DeviceType = DeviceType.Unknown,
+                Name = "Gas Cutoff Saw [14.0\"]",
+                Year = 2021,
+                Make = "Stihl",
+                Model = "TS 420",
+                Category = category1
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "4014",
+                DeviceType = DeviceType.Unknown,
+                Name = "Gas Cutoff Saw [14.0\"]",
+                Year = 2020,
+                Make = "Stihl",
+                Model = "TS 420",
+                Category = category1
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "4014",
+                DeviceType = DeviceType.Unknown,
+                Name = "Gas Cutoff Saw [14.0\"]",
+                Year = 2020,
+                Make = "Stihl",
+                Model = "TS 420",
+                Category = category1
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                DeviceType = DeviceType.Hub,
+                Name = "Air Compressor",
+                Make = "Mi-t-m",
+                Category = category2
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                DeviceType = DeviceType.Hub,
+                Make = "Mi-t-m",
+                Model = "XL-1",
+                Year = 2023,
+                Category = category2
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                DeviceType = DeviceType.Hub,
+                Identification = "4017",
+                Make = "Mi-t-m",
+                Name = "Air Compressor\"",
+                Category = category2
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                DeviceType = DeviceType.Tracker,
+                Identification = "4003",
+                Name = "Air Compressor",
+                Year = 2022,
+                Category = category2
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                DeviceType = DeviceType.Tracker,
+                Identification = "2594",
+                Name = "Air Compressor",
+                Make = "Champion",
+                Model = "VR5-8",
+                Year = 2020,
+                Category = category2
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                DeviceType = DeviceType.Hub,
+                Name = "Jeff’s generator 2",
+                Category = category3
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                DeviceType = DeviceType.Unknown,
+                Name = "Jeff’s generator",
+                Category = category3
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2593",
+                DeviceType = DeviceType.Hub,
+                Name = "Small Generator",
+                Make = "DeWalt",
+                Model = "DG7000E",
+                Category = category3
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2592",
+                DeviceType = DeviceType.Unknown,
+                Make = "Honda",
+                Name = "Small Generator",
+                Model = "EM6500SX",
+                Category = category3
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2591",
+                DeviceType = DeviceType.Unknown,
+                Make = "Honda",
+                Name = "Small Generator",
+                Model = "EM6500SX",
+                Category = category3
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2590",
+                DeviceType = DeviceType.Unknown,
+                Make = "Honda",
+                Name = "Small Generator",
+                Model = "EM6500SX",
+                Category = category3
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2589",
+                DeviceType = DeviceType.Unknown,
+                Make = "Honda",
+                Name = "Small Generator",
+                Model = "EM6500SX",
+                Category = category3
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2588",
+                DeviceType = DeviceType.Hub,
+                Make = "Honda",
+                Name = "Small Generator",
+                Model = "EM6500SX",
+                Category = category3
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2587",
+                DeviceType = DeviceType.Hub,
+                Make = "Honda",
+                Name = "Small Generator",
+                Model = "EM6500SX",
+                Category = category3
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2628",
+                DeviceType = DeviceType.Unknown,
+                Make = "GradeLight",
+                Model = "2500",
+                Name = "Pipe Laser with Rod",
+                Category = category4
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2627",
+                DeviceType = DeviceType.Unknown,
+                Make = "GradeLight",
+                Model = "2500",
+                Name = "Pipe Laser with Rod",
+                Category = category4
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2626",
+                DeviceType = DeviceType.Hub,
+                Make = "GradeLight",
+                Model = "2500",
+                Name = "Pipe Laser with Rod",
+                Category = category4
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2625",
+                DeviceType = DeviceType.Hub,
+                Make = "GradeLight",
+                Model = "2500",
+                Name = "Pipe Laser with Rod",
+                Category = category4
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2624",
+                DeviceType = DeviceType.Hub,
+                Make = "GradeLight",
+                Model = "2500",
+                Name = "Pipe Laser with Rod",
+                Category = category4
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2140H",
+                DeviceType = DeviceType.Tracker,
+                Name = "2014 JD410K",
+                Category = category5
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2015 Cat 4",
+                DeviceType = DeviceType.Tracker,
+                Name = "2146H",
+                Category = category5
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2105",
+                DeviceType = DeviceType.Unknown,
+                Name = "Cat 420D Backhoe",
+                Make = "Caterpillar",
+                Model = "420D",
+                Year = 2006,
+                Category = subcategory1
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "210",
+                DeviceType = DeviceType.Hub,
+                Name = "2006 Cat 420D Backhoe",
+                Make = "Caterpillar",
+                Model = "420D",
+                Year = 2006,
+                Category = subcategory1
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2186",
+                DeviceType = DeviceType.Hub,
+                Name = "Cat 420F2 Backhoe",
+                Make = "Caterpillar",
+                Model = "420F2",
+                Year = 2020,
+                Category = subcategory2
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2184",
+                DeviceType = DeviceType.Hub,
+                Name = "JD 410L Backhoe",
+                Make = "John Deere",
+                Model = "410L",
+                Year = 2021,
+                Category = subcategory2
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2177",
+                DeviceType = DeviceType.Tracker,
+                Name = "JD 410L Backhoe",
+                Make = "John Deere",
+                Model = "410L",
+                Year = 2018,
+                Category = subcategory2
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2146",
+                DeviceType = DeviceType.Hub,
+                Name = "Cat 420F Backhoe",
+                Make = "Caterpillar",
+                Model = "420F",
+                Year = 2015,
+                Category = subcategory2
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2140",
+                DeviceType = DeviceType.Hub,
+                Name = "JD 410K Backhoe",
+                Make = "John Deere",
+                Model = "410K",
+                Year = 2014,
+                Category = subcategory2
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2130Hub",
+                DeviceType = DeviceType.Tracker,
+                Name = "2011 cat 420E",
+                Category = subcategory2
+            });
+        assets.Add(new Asset
+            {
+                Id = Guid.NewGuid(),
+                Identification = "2130",
+                DeviceType = DeviceType.Hub,
+                Name = "2011 Cat 420E Backhoe",
+                Make = "Caterpillar",
+                Model = "420E",
+                Year = 2011,
+                Category = subcategory2
+            });
+        #endregion
+        #region Fake Assets
+        for (int i = 0; i < 2500; i++)
+        {
+            List<string> Names = new()
+                {
+                    "Truck",
+                    "Dozer",
+                    "Crane",
+                    "Ladder",
+                    "Generator",
+                    "Backhoe",
+                    "Pipe",
+                    "Gas Cutoff Saw",
+                    "Air Compressor"
+                };
+            Random rnd = new();
+            int device = rnd.Next(2);
+            int name = rnd.Next(0, Names.Count);
+            int showNumber = rnd.Next(0, 10);
+            assets.Add(new Asset
+                {
+                    Id = Guid.NewGuid(),
+                    Identification = Names[name],
+                    DeviceType = (device == 0) ? DeviceType.Hub : DeviceType.Tracker,
+                    Name = Names[name] + " " + ((showNumber < 1) ? i : ""),
+                });
+        }
+
+        #endregion
+
+        #endregion
+
+        data = assets;
+    }
+}

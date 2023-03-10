@@ -1,0 +1,154 @@
+﻿@namespace Component_Library
+@typeparam TableItem
+
+<CascadingValue Value="(IRsTable<TableItem>)this" Name="Table">
+    @ChildContent
+</CascadingValue>
+
+@if (Columns.Any())
+{
+    var columnCount = Columns.Count;
+
+    <table role="grid" class="rs-asset-table">
+            @if (ShowSearchBar || Columns.Exists(column => !column.Visible))
+            {
+                <thead role="search">
+                    <tr>
+                        <th colspan="@columnCount">
+                            @if (ShowSearchBar)
+                            {
+                                <input type="text" class="px-4 py-2 w-1/3" value="@GlobalSearch" @onchange="@(x => { GlobalSearch = x.Value.ToString(); UpdateAsync(); })" placeholder="Search Not Implemented" />
+                            }
+                        </th>
+                    </tr>
+                </thead>
+            }
+            @if (Columns.Exists(column => !column.Visible))
+                            {
+                                <div class="ml-auto" @onclick="@(_ => VisibilityMenuOpen = !VisibilityMenuOpen)">
+                                    <a @ref="VisibilityMenuIconRef">
+                                        <span aria-hidden="true">
+                                            <svg height="24" width="24">
+                                                <path d="M11 19v-6H5v-2h6V5h2v6h6v2h-6v6Z"/>
+                                            </svg>
+                                        </span>
+                                    </a>
+                                </div>
+                                <RsTableCustomizeColumns IsOpen="@VisibilityMenuOpen" Placement="Placement.Bottom" DismissOnNextClick="false" Reference="VisibilityMenuIconRef">
+                                    <span class="text-3xl font-bold">Customize Columns</span>
+                                    <div class="flex flex-col w-full">
+                                        <div class="ml-auto">
+                                            <svg class="cursor-pointer" height="24" width="24" @onclick="@(_ => VisibilityMenuOpen = false)">
+                                                <path d="M6.4 19 5 17.6l5.6-5.6L5 6.4 6.4 5l5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6Z"/>
+                                            </svg>
+                                        </div>
+                                        <table class="table-auto mx-auto">
+                                            @foreach (IColumn<TableItem> column in Columns.Where(column => !column.Visible))
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @(column.Title)
+                                                    </td>
+                                                    <td>
+                                                        <div class="flex ml-auto" @onclick="@(_ => { column.Visible = true; if (!Columns.Exists(column => !column.Visible)) VisibilityMenuOpen = false;})">
+                                                            <span aria-hidden="true">
+                                                                <svg class="my-auto" height="24" width="24">
+                                                                    <path d="M11 19v-6H5v-2h6V5h2v6h6v2h-6v6Z"/>
+                                                                </svg>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                        </table>
+                                    </div>
+                                </RsTableCustomizeColumns>
+                            }
+
+            <thead class="">
+                <tr class="cursor-pointer my-auto">
+                    @foreach (IColumn<TableItem> column in Columns)
+                    {
+                        @if (column.Visible)
+                        {
+                            <th @key="column" aria-sort="@column.AriaSort" class="">
+
+                                <div class="flex my-auto" @onclick="@(async () => await column.SortByAsync())">
+                                <span class="my-auto">@column.Title</span>
+
+                                    @if (column.SortColumn)
+                                    {
+                                        if (column.SortDescending)
+                                        {
+                                            <span aria-hidden="true">
+                                                <svg height="24" width="24">
+                                                    <path d="m12 15-5-5h10Z" />
+                                                </svg>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                        <span aria-hidden="true">
+                                            <svg class="rotate-180" height="24" width="24">
+                                                <path d="m12 15-5-5h10Z" />
+                                            </svg>
+                                        </span>
+                                        }
+                                    }
+
+                                    @if (column.Hideable)
+                                    {
+                                        <div class="flex ml-left mr-1 my-auto" @onclick="@(_ => column.Visible = false)">
+                                            <span aria-hidden="true">
+                                                <svg height="24" width="24">
+                                                    <path d="M5 13v-2h14v2Z" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            </th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (FilteredItems != null)
+                {
+
+                    @if (FilteredItems.Any())
+                    {
+                        <Virtualize Items="FilteredItems.ToList()" Context="item" ItemSize="32f">
+                            <ItemContent>
+                            <tr @key="item" class="rs-asset-table__row">
+
+                                    @foreach (IColumn<TableItem> column in Columns)
+                                    {
+                                        @if (column.Visible)
+                                        {
+                                            <td @key="column"
+                                                style="@(column.Align > 0 ? $"text-align: {column.Align};" : "")">
+
+                                                @if (column.Template == null)
+                                                {
+                                                    @column.Render(item)
+                                                }
+                                                else
+                                                {
+                                                    @column.Template(item)
+                                                }
+                                            </td>
+                                        }
+                                    }
+                                </tr>
+                            </ItemContent>
+                        </Virtualize>
+                    }
+                }
+            </tbody>
+        </table>
+    
+}
+
+

@@ -1,0 +1,60 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.rs-asset-table {
+    @apply w-full h-full p-4 h-[640px] mx-auto table-auto bg-rooster-gray-100 text-xs text-center font-semibold block border-separate border-spacing-y-2 overflow-scroll;
+}
+
+.rs-asset-table__row {
+    @apply bg-rooster-gray-250 text-xs font-semibold text-rooster-gray-900 text-center;
+}
+
+    .rs-asset-table__row:hover {
+        @apply outline outline-rooster-blue;
+    }
+
+.rs-asset-table__row__active {
+    @apply bg-rooster-blue text-white;
+}
+
+.rs-asset-table tbody tr td {
+    @apply p-2 whitespace-nowrap;
+}
+
+    .rs-asset-table tbody tr td:first-child {
+        @apply m-auto;
+    }
+
+    .rs-asset-table tbody tr td:nth-child() {
+        @apply text-left p-2 whitespace-nowrap;
+    }
+
+    .rs-asset-table tbody tr td:last-child {
+        @apply pr-2 flex whitespace-nowrap;
+    }
+
+.rs-asset-table thead tr td div {
+    @apply flex justify-center min-w-[128px] whitespace-nowrap px-2;
+}
+
+.rs-asset-table thead tr td:first-child div {
+    @apply text-left px-2 flex min-w-[16px] whitespace-nowrap;
+}
+
+.rs-asset-table thead tr td:nth-child(2) div {
+    @apply text-left px-2 flex min-w-[128px] whitespace-nowrap;
+}
+
+.rs-asset-table thead tr td:last-child div {
+    @apply pr-2 flex justify-center w-full whitespace-nowrap px-2;
+}
+
+.rs-asset-table thead tr td div span,
+.rs-asset-table thead tr td div img {
+    @apply my-auto;
+}
+
+.rs-asset-table__show-details {
+    @apply text-sm font-light my-auto pl-2;
+}
